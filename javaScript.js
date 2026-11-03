@@ -34,6 +34,13 @@ function addBookToLibrary(title, author, pages, read){
 }
 
 function addBookToDisplay(){
+    cardsContainer.textContent = "";
+
+    /*ALT to TRY
+      while (myNode.firstChild) {
+         myNode.removeChild(myNode.lastChild);
+      }
+     */
     for(const book of myLibrary){
         let div = document.createElement("div");
         div.classList.add("bookCard");
