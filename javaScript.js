@@ -12,8 +12,8 @@ function Book(title, author, pages, read){
     /*Best practice: a function should return values. These can be passed wherever, 
       no ties had to what the function ('info()', in this case) does.*/
     this.info = function(){
-        return `${this.title} by ${this.author} 
-                ${this.pages} pages
+        return `"${this.title}" by author: "${this.author}" 
+                pages: ${this.pages}
                 status: ${this.read}
                 id: ${this.id}`;
     }
@@ -26,6 +26,11 @@ const myLibrary = [];
 
 /*-=REFERENCES=-######################################################################*/
 const cardsContainer = document.querySelector(".bookshelf");
+const openDialogButton = document.querySelector(".openDialog");
+const inputForm = document.querySelector("form");
+const inputModal = document.querySelector("#bookInputDialog");
+const submitButton = inputModal.querySelector("#submit");
+const cancelButton = inputModal.querySelector("#cancel");
 /*###################################################################################*/
 
 /*-=FUNCTIONS=-######################################################################*/
@@ -34,13 +39,10 @@ function addBookToLibrary(title, author, pages, read){
 }
 
 function addBookToDisplay(){
+    //Removes all existing book cards
     cardsContainer.textContent = "";
-
-    /*ALT to TRY
-      while (myNode.firstChild) {
-         myNode.removeChild(myNode.lastChild);
-      }
-     */
+     
+    //Populates display div with book cards
     for(const book of myLibrary){
         let div = document.createElement("div");
         div.classList.add("bookCard");
@@ -48,4 +50,24 @@ function addBookToDisplay(){
         cardsContainer.appendChild(div);
     }
 }
+/*###################################################################################*/
+
+/*-=LISTENERS=-######################################################################*/
+openDialogButton.addEventListener("click", event => {
+    inputModal.showModal();
+});
+
+submitButton.addEventListener("click", event => {
+    event.preventDefault();
+
+    //Add code to: retrieve data/add to library/update display
+
+    inputModal.close();
+    inputForm.reset();
+});
+
+cancelButton.addEventListener("click", event => {
+    inputModal.close();
+    inputForm.reset();
+});
 /*###################################################################################*/
