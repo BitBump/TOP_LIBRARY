@@ -8,7 +8,34 @@
     <title>TOP LIBRARY</title>
 </head>
 <body>
-    <div class="bookshelf">
-    </div>
+    <div class="bookshelf"></div>
+    <button class="openDialog" type="button">Add a book</button>
+    <dialog id="bookInputDialog">
+        <form>
+            <div class="form-fields">
+                <label for="bookTitle">Book title:</label>
+                <input type="text" name="bookTitle" id="bookTitle" required>
+
+                <label for="author">Author:</label>
+                <input type="text" name="author" id="author" required>
+
+                <label for="pages">Pages:</label>
+                <input type="tel" name="pages" id="pages">
+            </div>
+            <fieldset>
+                <legend>Choose: </legend>
+                <div>
+                    <label for="read">Read <input type="radio" id="read" name="readState" value="read" checked></label>
+                </div>
+                <div>
+                    <label for="notRead">Not read <input type="radio" id="notRead" name="readState" value="not read"></label>
+                </div>
+            </fieldset>
+            <div>
+                <button type="submit" id="submit">Submit</button>
+                <button type="button" id="cancel">Cancel</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>
