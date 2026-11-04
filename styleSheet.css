@@ -1,3 +1,4 @@
+/*-=GLOBAL=-#########################################################################*/
 body{
     box-sizing: border-box;
 }
@@ -6,7 +7,10 @@ div{
     margin: 0px;
     padding: 0px;
 }
+/*###################################################################################*/
 
+
+/*-=CARDS & CONTAINER=-##############################################################*/
 .bookshelf{
     width:80vw;
     height:80vh;
@@ -16,6 +20,8 @@ div{
     display: flex;
     flex-wrap: wrap;
 
+    margin-bottom: 60px;
+
     background-color: blanchedalmond;
 }
 
@@ -23,7 +29,7 @@ div{
     flex: 1 1 30%;
 
     font-size: 2.5rem;
-    line-height: 1.5rem;
+    line-height: 3.5rem;
     word-wrap: break-word;
 
     width: 30%;
@@ -36,3 +42,70 @@ div{
     border-radius: 10px;
     background-color: white;
 }
+/*###################################################################################*/
+
+/*-=DIALOG & FORM CONTENTS=-#########################################################*/
+
+/*-=FORM CONTENT=------------------------------*/
+input[type="radio"]{
+    width: 2rem;
+    height: 2rem;
+}
+
+.form-fields {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.form-fields label {
+    margin-bottom: 0;
+}
+
+form div,
+form fieldset{
+    margin-bottom: 4rem;
+}
+/*---------------------------------------------*/
+
+/*-=GENERAL=-----------------------------------*/
+.openDialog,
+form button,
+form input,
+#bookInputDialog{
+    font-size: 3rem;
+}
+/*---------------------------------------------*/
+
+/*-=DIALOG-OPENING BUTTON & FORM BUTTONS=------*/
+.openDialog,
+form button{
+    width: fit-content;
+    height: auto;
+
+    padding: 10px;
+
+    border-radius: 15px;
+}
+/*---------------------------------------------*/
+
+/*-=DIALOG-OPENING BUTTON=---------------------*/
+.openDialog{
+    border: 8px solid navy;
+}
+
+.openDialog:active{
+    background-color: springgreen;
+}
+/*---------------------------------------------*/
+
+/*-=DIALOG WINDOW=-----------------------------*/
+#bookInputDialog{
+    width: 50vw;
+    height: 45vh;
+
+    border-radius: 15px;
+}
+/*---------------------------------------------*/
+/*###################################################################################*/
