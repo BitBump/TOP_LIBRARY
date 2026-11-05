@@ -25,12 +25,12 @@ const myLibrary = [];
 /*###################################################################################*/
 
 /*-=REFERENCES=-######################################################################*/
-const cardsContainer = document.querySelector(".bookshelf");
-const openDialogButton = document.querySelector(".openDialog");
 const inputForm = document.querySelector("form");
 const inputModal = document.querySelector("#bookInputDialog");
 const submitButton = inputModal.querySelector("#submit");
 const cancelButton = inputModal.querySelector("#cancel");
+const cardsContainer = document.querySelector(".bookshelf");
+const openDialogButton = document.querySelector(".openDialog");
 /*###################################################################################*/
 
 /*-=FUNCTIONS=-######################################################################*/
@@ -47,8 +47,20 @@ function addBookToDisplay(){
         let div = document.createElement("div");
         div.classList.add("bookCard");
         div.innerText = book.info();
+        div.dataset.id = book["id"]; //Applies "data-attribute"(data-id) to the div
+        //Develop method to create "Remove" button, add listener to it and append to div
         cardsContainer.appendChild(div);
     }
+}
+
+function closeAndResetModal(){
+    inputModal.close();
+    inputForm.reset();
+}
+
+function updateLibrary(title, author, pages, read){
+    addBookToLibrary(title, author, pages, read);
+    addBookToDisplay();
 }
 /*###################################################################################*/
 
@@ -60,14 +72,36 @@ openDialogButton.addEventListener("click", event => {
 submitButton.addEventListener("click", event => {
     event.preventDefault();
 
-    //Add code to: retrieve data/add to library/update display
+    //First (working) solution
+    /*
+    let bookInfo = [];
+    let formData = new FormData(inputForm);
+    for (const dataPoint of formData){bookInfo.push(dataPoint[1]);}
+    if(bookInfo.length === 4){
+        updateLibrary(bookInfo[0], bookInfo[1], bookInfo[2], bookInfo[3]);
+    } else {
+        alert("Missing data, operation aborted");
+    }
+    */
 
-    inputModal.close();
-    inputForm.reset();
+    //Refined solution
+    let formData = new FormData(inputForm);
+
+    //"Array.from()" converts iterable into array
+    //"formData.values()" retrieves iterable containing values only
+    let bookInfo = Array.from(formData.values());
+
+    if (bookInfo.length === 4) {
+        //"..." (Spread Operator) unpacks values inside array into individual arguments
+        updateLibrary(...bookInfo);
+    } else {
+        alert("Missing data, operation aborted");
+    }
+
+    closeAndResetModal();
 });
 
 cancelButton.addEventListener("click", event => {
-    inputModal.close();
-    inputForm.reset();
+    closeAndResetModal();
 });
 /*###################################################################################*/
