@@ -27,13 +27,22 @@ const myLibrary = [];
 /*-=REFERENCES=-######################################################################*/
 const inputForm = document.querySelector("form");
 const inputModal = document.querySelector("#bookInputDialog");
-const submitButton = inputModal.querySelector("#submit");
+const submitButton = inputModal.querySelector("#sbm");
 const cancelButton = inputModal.querySelector("#cancel");
 const cardsContainer = document.querySelector(".bookshelf");
 const openDialogButton = document.querySelector(".openDialog");
 /*###################################################################################*/
 
 /*-=FUNCTIONS=-######################################################################*/
+function makeRemoveButton(){
+    let remButton = document.createElement("button");
+    remButton.setAttribute("type", "button");
+    remButton.setAttribute("class", "remButton");
+    remButton.textContent = "Remove Book";
+
+    return remButton;
+}
+
 function addBookToLibrary(title, author, pages, read){
     myLibrary.push(new Book(title, author, pages, read));
 }
@@ -46,11 +55,17 @@ function addBookToDisplay(){
     for(const book of myLibrary){
         let div = document.createElement("div");
         div.classList.add("bookCard");
-        div.innerText = book.info();
+        div.innerText = book.info() + "\n";
         div.dataset.id = book["id"]; //Applies "data-attribute"(data-id) to the div
+        div.appendChild(makeRemoveButton());
         //Develop method to create "Remove" button, add listener to it and append to div
         cardsContainer.appendChild(div);
     }
+}
+
+//The removeButton listener takes data-id from card, removes from myLibrary and repaints Display
+function removeBookFromDisplay(){
+    //Remove a book from myLibrary (identified via id), then update display
 }
 
 function closeAndResetModal(){
@@ -69,20 +84,9 @@ openDialogButton.addEventListener("click", event => {
     inputModal.showModal();
 });
 
-submitButton.addEventListener("click", event => {
-    event.preventDefault();
+inputForm.addEventListener("submit", event => {
 
-    //First (working) solution
-    /*
-    let bookInfo = [];
-    let formData = new FormData(inputForm);
-    for (const dataPoint of formData){bookInfo.push(dataPoint[1]);}
-    if(bookInfo.length === 4){
-        updateLibrary(bookInfo[0], bookInfo[1], bookInfo[2], bookInfo[3]);
-    } else {
-        alert("Missing data, operation aborted");
-    }
-    */
+    event.preventDefault();
 
     //Refined solution
     let formData = new FormData(inputForm);
