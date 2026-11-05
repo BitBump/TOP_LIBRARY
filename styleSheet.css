@@ -42,6 +42,10 @@ div{
     border-radius: 10px;
     background-color: white;
 }
+
+.remButton{
+    margin-top: 6rem;
+}
 /*###################################################################################*/
 
 /*-=DIALOG & FORM CONTENTS=-#########################################################*/
@@ -70,16 +74,25 @@ form fieldset{
 /*---------------------------------------------*/
 
 /*-=GENERAL=-----------------------------------*/
-.openDialog,
-form button,
 form input,
+form button,
+.remButton,
+.openDialog,
 #bookInputDialog{
     font-size: 3rem;
+}
+
+
+.remButton:active,
+.openDialog:active,
+form button:active{
+    background-color: springgreen;
 }
 /*---------------------------------------------*/
 
 /*-=DIALOG-OPENING BUTTON & FORM BUTTONS=------*/
 .openDialog,
+.remButton,
 form button{
     width: fit-content;
     height: auto;
@@ -93,10 +106,6 @@ form button{
 /*-=DIALOG-OPENING BUTTON=---------------------*/
 .openDialog{
     border: 8px solid navy;
-}
-
-.openDialog:active{
-    background-color: springgreen;
 }
 /*---------------------------------------------*/
 
