@@ -20,8 +20,20 @@ function Book(title, author, pages, read){
 }
 /*###################################################################################*/
 
+
+/*-=PROTOTYPES=-#####################################################################*/
+Book.prototype.changeStatus = function(){
+    if(this.read === "read"){
+        this.read = "not read"
+    } else {
+        this.read = "read";
+    }
+};
+/*###################################################################################*/
+
 /*-=LIBRARY=-########################################################################*/
-const myLibrary = [];
+//Chosen 'let' over 'const' to enable self-assignment (myLibrary = myLibrary.filter())
+let myLibrary = [];
 /*###################################################################################*/
 
 /*-=REFERENCES=-######################################################################*/
@@ -33,21 +45,60 @@ const cardsContainer = document.querySelector(".bookshelf");
 const openDialogButton = document.querySelector(".openDialog");
 /*###################################################################################*/
 
+
 /*-=FUNCTIONS=-######################################################################*/
 function makeRemoveButton(){
     let remButton = document.createElement("button");
     remButton.setAttribute("type", "button");
     remButton.setAttribute("class", "remButton");
     remButton.textContent = "Remove Book";
+    remButton.addEventListener("click", event => {
+        let bookId = event.target.parentNode.dataset.id;
+        removeBookFromLibrary(bookId);
+        updateDisplay();
+    });
 
     return remButton;
+}
+
+function makeStatusToggleButton(){
+    let statusToggle = document.createElement("button");
+    statusToggle.setAttribute("type", "button");
+    statusToggle.setAttribute("class", "statusToggle");
+    statusToggle.textContent = "Change Status";
+    statusToggle.addEventListener("click", event => {
+        //Retrieve book id
+        let bookId = event.target.parentNode.dataset.id;
+
+        //Extract book from array of books
+        let book = myLibrary.find(book => book.id === bookId);
+
+        //Get book's index inside array of books
+        let bookIndex = myLibrary.indexOf(book);
+
+        //Change book's read status
+        book.changeStatus();
+
+        //Remove previous book iteration & insert new at same position
+        myLibrary.splice(bookIndex, 1, book);
+
+        //Repaint library display (order of books unaltered)
+        updateDisplay();
+    });
+
+    return statusToggle;
 }
 
 function addBookToLibrary(title, author, pages, read){
     myLibrary.push(new Book(title, author, pages, read));
 }
 
-function addBookToDisplay(){
+//Take bookId, removes matching book from myLibrary
+function removeBookFromLibrary(bookId){
+    myLibrary = myLibrary.filter(book => book.id !== bookId);
+}
+
+function updateDisplay(){
     //Removes all existing book cards
     cardsContainer.textContent = "";
      
@@ -58,26 +109,23 @@ function addBookToDisplay(){
         div.innerText = book.info() + "\n";
         div.dataset.id = book["id"]; //Applies "data-attribute"(data-id) to the div
         div.appendChild(makeRemoveButton());
+        div.appendChild(makeStatusToggleButton());
         //Develop method to create "Remove" button, add listener to it and append to div
         cardsContainer.appendChild(div);
     }
 }
 
-//The removeButton listener takes data-id from card, removes from myLibrary and repaints Display
-function removeBookFromDisplay(){
-    //Remove a book from myLibrary (identified via id), then update display
+function updateLibrary(title, author, pages, read){
+    addBookToLibrary(title, author, pages, read);
+    updateDisplay();
 }
 
 function closeAndResetModal(){
     inputModal.close();
     inputForm.reset();
 }
-
-function updateLibrary(title, author, pages, read){
-    addBookToLibrary(title, author, pages, read);
-    addBookToDisplay();
-}
 /*###################################################################################*/
+
 
 /*-=LISTENERS=-######################################################################*/
 openDialogButton.addEventListener("click", event => {
@@ -104,6 +152,7 @@ inputForm.addEventListener("submit", event => {
 
     closeAndResetModal();
 });
+
 
 cancelButton.addEventListener("click", event => {
     closeAndResetModal();
