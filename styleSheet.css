@@ -44,7 +44,7 @@ div{
 }
 
 .remButton{
-    margin-top: 6rem;
+    margin: 6rem 2rem 6rem 0rem;
 }
 /*###################################################################################*/
 
@@ -78,6 +78,7 @@ form input,
 form button,
 .remButton,
 .openDialog,
+.statusToggle,
 #bookInputDialog{
     font-size: 3rem;
 }
@@ -85,14 +86,16 @@ form button,
 
 .remButton:active,
 .openDialog:active,
+.statusToggle:active,
 form button:active{
     background-color: springgreen;
 }
 /*---------------------------------------------*/
 
 /*-=DIALOG-OPENING BUTTON & FORM BUTTONS=------*/
-.openDialog,
 .remButton,
+.openDialog,
+.statusToggle,
 form button{
     width: fit-content;
     height: auto;
